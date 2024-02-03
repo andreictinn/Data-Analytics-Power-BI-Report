@@ -2,7 +2,8 @@
 
 ## Overview
 
-This repository contains the steps and procedures for a Power BI data transformation project. The goal is to extract, transform, and load data using Microsoft Power BI for a medium-sized international retailer.
+This repository contains the steps and procedures for a Power BI data analysis project to replicate a realistic scenario. The goal is to extract, explore, clean and transform the data before setting-up a business report to present in front of a board meeting for a medium-sized international retailer. 
+
 
 ## Project Steps
 
@@ -24,6 +25,18 @@ This repository contains the steps and procedures for a Power BI data transforma
 - Convert the data type of the values column to a decimal number.
 - If errors occur during conversion, replace them with the number 1.
 - Create a calculated column to convert weights to kilograms if the unit is not "kg."
+
+#### 2.3 
+
+#### 2.4
+
+#### 2.5 
+
+#### 2.6 
+
+#### 2.7 
+
+#### 3.0 
 
 
 
