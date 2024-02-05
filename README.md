@@ -152,7 +152,8 @@ Power BI is an extremely versatile and customisable tool capable of creating tai
 
 ### Task 7.1: Report Visuals
 
-After ascertaining which data is relevant to your report, you can build the report. Determining the correct visuals will depend on a lot of factors and industry standards. Familiarise yourself with PowerBI reports here.  
+After ascertaining which data is relevant to your report, you can build the report. Determining the correct visuals will depend on a lot of factors and industry standards. Familiarise yourself with PowerBI reports [here](https://learn.microsoft.com/en-us/power-bi/create-reports/sample-datasets).  
+
 
 
 ## Contributors
