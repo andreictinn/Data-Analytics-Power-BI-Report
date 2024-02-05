@@ -146,10 +146,13 @@ On the Executive Summary page:
 
 Duplicate the rectangle shape on each of the other pages in your report.
 
-### Task 7: Report Building in Power BI
+### Task 7: Understandging Reports in Power BI
 
+Power BI is an extremely versatile and customisable tool capable of creating tailored visuals and analysis for your professional needs. For a successful presentation, it is of paramount importance to understand what your report is meant to achieve before setting up the report to ensure you are showcasing the relevant performance indicators for your company's priorities. Displaying the wrong data can make even the most impressive report fall flat, thus choose your visuals wisely. 
 
+### Task 7.1: Report Visuals
 
+After ascertaining which data is relevant to your report, you can build the report. Determining the correct visuals will depend on a lot of factors and industry standards. Familiarise yourself with PowerBI reports here.  
 
 
 ## Contributors
