@@ -2,163 +2,139 @@
 
 ## Overview
 
-This repository documents the steps and procedures for a Power BI data analysis project aimed at replicating a realistic scenario. The project's objective is to extract and transform data before setting up a business report for presentation at a board meeting for a medium-sized international retailer.
+This repository contains documentation and instructions for a Power BI data analysis project designed to replicate a realistic scenario. The project aims to extract and transform data for creating a comprehensive business report to be presented at a board meeting for a medium-sized international retailer. By leveraging Power BI, the project demonstrates the ability to analyze complex datasets, derive actionable insights, and present findings in a visually appealing format.
 
-## Project Steps
+## Table of Contents
 
-### Task 1: Import Orders Table - Select your respective data source
+1. [Introduction](#introduction)
+2. [Data Sources](#data-sources)
+3. [Data Cleaning and Transformation](#data-cleaning-and-transformation)
+4. [Data Model](#data-model)
+5. [Understanding Reports in Power BI](#understanding-reports-in-power-bi)
+6. [Building the Report Visuals](#building-the-report-visuals)
+7. [Executive Summary Page](#executive-summary-page)
+8. [Product Detail Page](#product-detail-page)
+9. [Customer Detail Page](#customer-detail-page)
+10. [Stores Map Page](#stores-map-page)
+11. [Drillthrough Page](#drillthrough-page)
+12. [Cross-Filtering and Navigation](#cross-filtering-and-navigation)
+13. [License](#license)
 
-Connect to the Azure SQL Database using the provided credentials and import the Orders table into Power BI using the Get Data option.
+## Introduction
 
-### Task 2: Data Cleaning and Transformation in Power Query Editor
+This project showcases my expertise in data analysis, visualization, and business intelligence using Power BI. By leveraging various data sources, implementing advanced data cleaning and transformation techniques, and designing intuitive report pages, I aim to demonstrate my ability to deliver actionable insights to stakeholders.
 
-#### 2.1 Split Date and Time in Orders Table
+## Data Sources
 
-- Use the Power Query Editor to split the `Order Date` and `Shipping Date` columns into date and time components.
-- Filter out and remove any rows where the `Order Date` column has missing or null values to maintain data integrity.
+The project utilizes multiple data sources, including:
 
-#### 2.2 Clean and Transform Weight Column in Products Table
+- **Azure SQL Database**: Hosts the Orders table containing transactional data.
+- **Products.csv**: Provides product information, aiding in sales analysis.
+- **Azure Blob Storage**: Stores data related to store locations.
+- **Customers Data Folder**: Contains customer information necessary for segmentation analysis.
 
-- Download the `Products.csv` file and import it into Power BI in the same way as before.
-- Utilize the Remove Duplicates function on the `product code` column to ensure each product code is unique.
-- Rename the columns in the dataset to match Power BI naming conventions for consistency and clarity.
+## Data Cleaning and Transformation
 
-#### 2.3 Connect to Azure Blob Storage for Stores Table
-- Use Power BI's Get Data option to connect to Azure Blob Storage.
-- Import the `Stores` table into the project using your provided credentials.
-- Rename the columns in the dataset to align with Power BI naming conventions for clarity and consistency.
+The data cleaning and transformation process involves several steps for which I employed advanced data cleaning and transformation techniques to ensure data accuracy and consistency:
 
-#### 2.4 Import Customers Data from Folder
+- **Power Query Editor**: Used to clean and split date and time columns, remove duplicates, and standardize column names.
+- **External Data Integration**: Connects to external sources such as Azure Blob Storage to integrate disparate datasets.
+- **Missing Data Handling**: Ensures data integrity by handling missing or null values appropriately.
 
-- Download the `Customers.zip` file and unzip it on your local machine.
-- Use the Get Data option in Power BI to import the Customers folder into your project.
-- Utilize the Folder data connector to combine and transform the data from the three CSV files.
-- Create a Full Name column by combining the [First Name] and [Last Name] columns.
-- Delete any obviously unused columns (e.g., index columns) and rename the remaining columns to align with Power BI naming conventions.
+## Data Model
 
-#### 2.5 Remove Sensitive Column in Orders Table (if any)
+The project incorporates a star schema data model to facilitate efficient data analysis and querying:
 
-- In the Power Query Editor, delete the column named [Card Number] to ensure data privacy.
+### Star Schema Design
 
-#### 2.6 Additional Data Transformations (if any)
+- **Fact Table**: The central table in the star schema is the Orders table, containing transactional data such as order dates, products purchased, and sales amounts. This table serves as the fact table and is surrounded by dimension tables.
 
-- Perform any additional data cleaning and transformation steps as needed for specific requirements.
+- **Dimension Tables**: Surrounding the fact table are dimension tables that provide context and additional information about various aspects of the business. These dimension tables include:
+  - **Products**: Contains information about the products sold, such as product codes, descriptions, and categories.
+  - **Stores**: Stores information about store locations, including store codes, names, and geographic details.
+  - **Customers**: Provides details about customers, including unique identifiers, demographics, and purchasing behaviors.
+  - **Date**: A date dimension table that spans the entire range of dates in the dataset, facilitating time-based analysis.
 
-### Task 3: Create a Data Model
+### Relationships
 
-- Create relationships between tables as necessary to establish a comprehensive Star Schema data model for using Time Intelligence analysis. 
+- **Establishing Relationships**: Relationships are established between the fact table (Orders) and dimension tables (Products, Stores, Customers, Date) based on common fields such as product codes, store codes, customer IDs, and date keys.
 
-#### 3.1 Create a Continuous Date Table
+- **One-to-Many Relationships**: The relationships are typically one-to-many, reflecting the fact that multiple orders can be associated with a single product, store, or customer, and each order occurs on a specific date.
 
-To leverage Power BI's time intelligence functions, create a continuous date table covering the entire time period from the earliest date in `Orders['Order Date']` to the latest date in `Orders['Shipping Date']` using your preferred DAX formula.
+### Benefits of Star Schema
 
-#### 3.2 Add Columns to Date Table
+- **Simplicity**: The star schema design simplifies data analysis by organizing data into easily understandable dimensions and facts.
+- **Efficiency**: Queries against star schema models tend to be more efficient due to the denormalized structure and optimized relationships.
+- **Flexibility**: The star schema allows for flexible querying and analysis, enabling users to slice and dice data across various dimensions.
+- **Scalability**: The star schema can accommodate growing data volumes and evolving analytical requirements, making it suitable for future expansion and analysis.
 
-Use DAX formulas to add the following columns to your date table:
+### Implementation
 
-- Day of Week
-- Month Number (Jan = 1, Dec = 12, etc.)
-- Month Name
-- Quarter
-- Year
-- Start of Year
-- Start of Quarter
-- Start of Month
-- Start of Week
+- **Implementation in Power BI**: The star schema design is implemented within Power BI by defining relationships between tables in the data model. Power BI's intuitive interface and DAX functions facilitate the creation and management of the star schema.
+- **DAX Calculations**: DAX measures are utilized to perform calculations and aggregations across the fact table, leveraging the relationships established within the star schema.
+- **Optimization**: The data model is optimized for performance, with careful consideration given to indexing, data types, and query optimization techniques to ensure efficient data retrieval and analysis.
 
-#### 3.3 Create Relationships in Star Schema
+By implementing a star schema data model, the project ensures a solid foundation for comprehensive and efficient data analysis within Power BI, enabling stakeholders to derive meaningful insights from the dataset.
 
-Form relationships between tables to create a star schema:
+## Understanding Reports in Power BI
 
-- `Products[product_code]` to `Orders[product_code]`
-- `Stores[store code]` to `Orders[Store Code]`
-- `Customers[User UUID]` to `Orders[User ID]`
-- `Date[date]` to `Orders[Order Date]`
-- `Date[date]` to `Orders[Shipping Date]`
+Power BI is an exceptionally versatile and customizable tool capable of creating tailored visuals and analyses to meet your professional requirements. Achieving a successful presentation hinges on understanding the objectives of your report prior to its setup, ensuring that you spotlight the relevant performance indicators aligned as per your company's priorities. Careful consideration must be given to avoid showcasing irrelevant or misleading data, as even the most visually striking report can falter if it fails to convey the right information for the right time.
 
-Ensure the relationship between `Orders[Order Date]` and `Date[date]` is the active relationship, with one-to-many relationships.
+Once you've identified the relevant data for your report, you can begin its construction. The choice of visuals should be guided by a multitude of factors, including including your company's preferences, industry standards and the specific goals of your analysis. It's crucial to familiarize yourself with Power BI reports to leverage its capabilities optimally. By doing so, you'll be equipped to create compelling visuals and analyses that resonate with your audience and drive informed decision-making.
 
-### Task 4: Measures Table
+## Building the Report Visuals
 
-#### 4.1 Create Measures Table
+### Executive Summary Page
 
-Create a separate table named "Measures Table" in Power Query Editor or DAX to manage measures effectively.
+The Executive Summary page provides a high-level overview of key performance indicators and trends. It should provide all the key 
 
-#### 4.2 Create Key Measures
+- **Navigation Elements**: Intuitive sidebar for seamless access to other report pages.
+- **Visualizations**: Highlights top-level KPIs and trends using Power BI visuals.
+- **Insights**: Provides actionable insights and recommendations based on data analysis.
 
-Create key measures:
+### Product Detail Page
 
-- Total Orders
-- Total Revenue
-- Total Profit
-- Total Customers
-- Total Quantity
-- Profit YTD
-- Revenue YTD
+The Product Detail page demonstrates my proficiency in analyzing product performance:
 
-### Task 5: Hierarchies
+- **Interactive Visualizations**: Identifies top-selling products and analyzes revenue and profit margins.
+- **Drillthrough Functionality**: Enables detailed product analysis with just a click.
+- **Filters**: Allows exploration of product data based on various criteria such as category and region.
 
-#### 5.1 Create Date Hierarchy
+### Customer Detail Page
 
-Create a date hierarchy with levels:
+The Customer Detail page highlights my skills in analyzing customer behavior and segmentation:
 
-- Start of Year
-- Start of Quarter
-- Start of Month
-- Start of Week
-- Date
+- **Visualizations**: Understands customer demographics, purchasing patterns, and lifetime value.
+- **Segmentation**: Segments customers based on attributes such as location, age, and purchase history.
+- **Insights**: Provides insights into customer segments' impact on revenue and profitability.
 
-#### 5.2 Create Geography Hierarchy
+### Stores Map Page
 
-Create a geography hierarchy with levels:
+The Stores Map page illustrates my ability to visualize geographical data and analyze store performance:
 
-- World Region
-- Country
-- Country Region
+- **Interactive Maps**: Displays store locations and sales performance by region or country.
+- **Drillthrough Functionality**: Enables detailed analysis of store performance metrics.
+- **Visualizations**: Identifies trends and patterns in store data for informed decision-making.
 
-Create calculated columns for full country and geography names in the Stores table based on specific schemes.
+### Drillthrough Page
 
-Ensure correct data categories for columns.
+The Drillthrough Page showcases my capability to provide detailed insights into specific aspects of the data:
 
-### Task 6: Report Pages and Styling
+- **Drillthrough Actions**: Navigates from summary visuals to detailed data analysis.
+- **In-depth Analysis**: Examines specific metrics or dimensions based on user selection.
+- **Interactivity**: Allows exploration of data in more detail to uncover actionable insights.
 
-#### 6.1 Create Report Pages
+### Cross-Filtering and Navigation
 
-Create four report pages and name them as follows:
+The report enables seamless navigation and interactive data exploration:
 
-- Executive Summary
-- Customer Detail
-- Product Detail
-- Stores Map
+- **Cross-Filtering**: Dynamically updates visuals based on user selection for deeper analysis.
+- **Navigation Controls**: Provides intuitive controls for easy traversal between report pages.
+- **User Experience**: Ensures a smooth user experience with responsive visuals and interactive elements.
 
-#### 6.2 Choose Color Theme
+## License
 
-Decide on a color theme for your report. Power BI has pre-defined themes, which you can find in the Ribbon under the View tab. You can explore more about Power BI themes [here](https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-report-themes).
-
-#### 6.3 Design Executive Summary Page
-
-On the Executive Summary page:
-
-- Add a rectangle shape covering a narrow strip on the left side of the page.
-- Set the fill color to a contrasting color of your choice. This will be the sidebar for navigation.
-
-#### 6.4 Duplicate Rectangle Shape
-
-Duplicate the rectangle shape on each of the other pages in your report.
-
-### Task 7: Understandging Reports in Power BI
-
-Power BI is an extremely versatile and customisable tool capable of creating tailored visuals and analysis for your professional needs. For a successful presentation, it is of paramount importance to understand what your report is meant to achieve before setting up the report to ensure you are showcasing the relevant performance indicators for your company's priorities. Displaying the wrong data can make even the most impressive report fall flat, thus choose your visuals wisely. 
-
-### Task 7.1: Report Visuals
-
-After ascertaining which data is relevant to your report, you can build the report. Determining the correct visuals will depend on a lot of factors and industry standards. Familiarise yourself with PowerBI reports [here](https://learn.microsoft.com/en-us/power-bi/create-reports/sample-datasets).  
-
-
-
-## Contributors
-
-- [Andrei Constantin]
+This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code for your purposes. Contributions are welcome and encouraged.
 
 Feel free to contribute or provide feedback!
 
