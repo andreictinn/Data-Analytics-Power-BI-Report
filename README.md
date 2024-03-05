@@ -61,6 +61,9 @@ The project incorporates a star schema data model to facilitate efficient data a
 
 - **One-to-Many Relationships**: The relationships are typically one-to-many, reflecting the fact that multiple orders can be associated with a single product, store, or customer, and each order occurs on a specific date.
 
+<img width="891" alt="image" src="https://github.com/andreictinn/Data-Analytics-Power-BI-Report/assets/88589252/a3437029-bdeb-4d99-a482-0f43e5e31d02">
+
+
 ### Benefits of Star Schema
 
 - **Simplicity**: The star schema design simplifies data analysis by organizing data into easily understandable dimensions and facts.
